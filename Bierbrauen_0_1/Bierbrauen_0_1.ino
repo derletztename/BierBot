@@ -1,13 +1,15 @@
 #include <math.h>
 #include <LiquidCrystal.h>
 LiquidCrystal lcd(32, 30, 28, 26, 24, 22);
-float temperatur =0;
+float temperatur = 0; //Gemessene Temperatur
+float Solltemp = 0; //Temperatur Sollwert
+float Dauer = 0; //Dauer für die jeweilige Rast festlegen
 
 void setup()
 {
 Serial.begin (9600); 
 lcd.begin(16, 2);
-lcd.print("Zuckerraststufe");
+
 lcd.setCursor(0, 1);
 lcd.print("Temperatur:");
 pinMode(A0,OUTPUT); //Pin für Motor
@@ -39,28 +41,39 @@ ergebnis =temp;
 return ergebnis;
 }
 
-/*int Heizen(){
+int Heizen(){
   digitalWrite(A0, HIGH);
-  delay(250);
+  //Hier muss der PID Quatsch rein
 }  
-*/
+
+void Rast()
+{
+  int k;
+  for (int i=0; i <= Dauer; i++){
+      k = TemperaturLesen();
+      lcd.setCursor(15, 1);
+      lcd.print(k);   // aktuelle Temperatur ausgeben
+      if ((k > Solltemp-2) && (k < Solltemp+2)) 
+      { 
+       Heizen();
+      }
+  }   
+}
 
 void loop()
 {
-int k;
-k = TemperaturLesen();
- Serial.println(k); // Temperatur auch am Rechner lesbar machen
-  // set the cursor to column 0, line 1
-  // (note: line 1 is the second row, since counting begins with 0):
- lcd.setCursor(15, 1);
- lcd.print(k);   // aktuelle Temperatur ausgeben
- //Motor steuern
- 
- //Heizen
-/*if ((k > 25) && (k < 30)) 
- { 
-  Heizen();
- }
-*/
-// delay(500);
+  Solltemp = 53;
+  Dauer = 120000;
+  Rast;
+  Solltemp = 63;
+  Dauer = 270000;
+  Rast;
+  Solltemp = 75;
+  Dauer = 180000;
+  Rast;
+  Solltemp = 78;
+  Dauer = 120000;
+  Rast;
+  digitalWrite(A0, LOW);
+  delay(600000); //Damit wir auf jedenfall das rechtzeitige Ausschalten schaffen
 }
