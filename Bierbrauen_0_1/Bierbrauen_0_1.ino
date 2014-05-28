@@ -7,6 +7,13 @@ float Dauer = 0; //Dauer für die jeweilige Rast festlegen
 int led_gruen = 13; //Pin grüne LED
 int led_rot = 11; //Pin rote LED
 
+long timer1 = 0; //Timer für die verschiedenen Stufen
+long timer2 = 0;
+long timer3 = 0;
+long timer4 = 0;
+long timer5 =0;
+long startTime = 0;
+
 void setup()
 {
 Serial.begin (9600); //Baudrate für Kommunikation mit Rechner
@@ -67,8 +74,30 @@ void Rast() //Funktion für die jeweiligen Raststufen
 
 void loop() //HauptSchleife
 {
+while (timer1 < 120000)  //schleife für die erste Stufe
+(
+  sw=53; //aktuelle Solltemperatur
+  iw=temp; //aktuelle Temperatur
+  diff=sw-iw; //differenz zwischen sollwert und istwert
+
+  if (diff <0)
+    {
+    startTime= millis(); // aktuelle Zeit merken
+    }
+    
+//jetzt Stellgröße berechnen mit dem PID.....kommt noch
+
+Timer1 = millis() - startTime ; // aktuelle SchleifenZeit
+// solange timer1 kleiner als 120000 ist wird diese Schleife durchlaufen
+//wenn die Zeit erreicht ist, dann wird die nächste Raststufe gestartet mit einer neuen Schleife
+
+
+)
+
+
   Solltemp = 53; //Temperatur setzen
   Dauer = 120000; //Dauer setzen
+  
   Rast; //Proteaserast
   Solltemp = 63;
   Dauer = 270000;
