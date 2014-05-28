@@ -7,6 +7,8 @@ float Dauer = 0; //Dauer für die jeweilige Rast festlegen
 int led_gruen = 13; //Pin grüne LED
 int led_rot = 11; //Pin rote LED
 
+/* EIN TEST KOMMENTAR VON DAMIAN
+
 void setup()
 {
 Serial.begin (9600); //Baudrate für Kommunikation mit Rechner
