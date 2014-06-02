@@ -64,19 +64,24 @@ void Rast() //Funktion für die jeweiligen Raststufen
       k = TemperaturLesen();
       lcd.setCursor(15, 1);
       lcd.print(k);   // aktuelle Temperatur ausgeben
-      if ((k > Solltemp-2) && (k < Solltemp+2)) 
+      if ((k < Solltemp)) //&& (k < Solltemp+2)) 
       { 
        Heizen();
-       digitalWrite(led_rot, LOW);
+       delay(500);
+      } 
+      else {
+      digitalWrite(A0, LOW);
+      digitalWrite(led_rot, LOW);
       }
   }   
 }
+
 
 void loop() //HauptSchleife
 {
 while (timer1 < 120000)  //schleife für die erste Stufe
 (
-  sw=53; //aktuelle Solltemperatur
+  Solltemp=53; //aktuelle Solltemperatur
   iw=temp; //aktuelle Temperatur
   diff=sw-iw; //differenz zwischen sollwert und istwert
 
