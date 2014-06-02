@@ -90,6 +90,7 @@ while (timer1 < 120000)  //schleife für die erste Stufe
 Timer1 = millis() - startTime ; // aktuelle SchleifenZeit
 // solange timer1 kleiner als 120000 ist wird diese Schleife durchlaufen
 //wenn die Zeit erreicht ist, dann wird die nächste Raststufe gestartet mit einer neuen Schleife
+// test anna
 
 
 )
